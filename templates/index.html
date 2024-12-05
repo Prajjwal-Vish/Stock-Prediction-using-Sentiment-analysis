@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Predictions</title>
+    <style>
+        /* Global Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #2e2e2e; /* Dark background */
+            color: #fff; /* Light text color for better contrast */
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(to bottom right, #121212, #2e2e2e); /* Smooth gradient for the background */
+        }
+
+        h1, h2 {
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        h1 {
+            background: linear-gradient(to right, #ff5e62, #ff9966);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        h2 {
+            background: linear-gradient(to right, #36d1dc, #5b86e5);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        /* Container */
+        .container {
+            max-width: 700px;
+            width: 100%;
+            background-color: #1c1c1c;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        label {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input[type="file"] {
+            font-size: 16px;
+            padding: 15px;
+            border: 2px solid #555;
+            border-radius: 8px;
+            background-color: #333;
+            color: #fff;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        input[type="file"]:hover {
+            border-color: #ff5e62;
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(to right, #ff5e62, #ff9966);
+            color: #fff;
+            font-size: 20px;
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(to right, #ff9966, #ff5e62);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Prediction Result Styling */
+        #prediction {
+            margin-top: 30px;
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        #prediction p {
+            font-size: 18px;
+            color: #ddd;
+            font-weight: 500;
+        }
+
+        #prediction img {
+            max-width: 90%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        #prediction audio {
+            margin-top: 30px;
+            width: 100%;
+            border-radius: 8px;
+            background-color: #444;
+        }
+
+        /* Loading Text */
+        .loading-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff5e62;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px;
+            }
+
+            button[type="submit"] {
+                font-size: 18px;
+            }
+
+            input[type="file"] {
+                font-size: 14px;
+            }
+
+            #prediction p {
+                font-size: 16px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Upload .csv file of stock data</h1>
+        <!-- {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="flash-messages">
+                    <ul>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %} -->
+        <!-- Form for uploading files -->
+        <form action = "{{ url_for('upload') }}" id="upload-form" method="POST" enctype="multipart/form-data">
+
+            <label for="file">Choose a file:</label>
+            <input type="file" name="file" id="file-input" accept=".csv">
+            <button type="submit">Select</button>
+        </form>
+
+        <div id="prediction">
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction</title>
+</head>
+<body>
+    <h1>Stock Price Prediction</h1>
+    <h3>Prediction Results</h3>
+
+    <!-- Display the plot -->
+    <img src="data:image/png;base64,{{ img_base64 }}" alt="Stock Price Prediction Plot">
+
+    <h4>True vs Predicted Stock Prices:</h4>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>True Value (Stock Price)</th>
+                <th>Predicted Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for true, pred in zipped_data %}
+                <tr>
+                    <td>{{ true }}</td>
+                    <td>{{ pred }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <a href="{{ url_for('upload_file') }}">Upload a new file</a>
+</body>
+</html>
