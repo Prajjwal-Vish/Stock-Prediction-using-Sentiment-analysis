@@ -40,6 +40,7 @@ def plot_graph(y_true, y_pred):
     plt.title('Stock Price Prediction: True vs Predicted')
     plt.legend()
     
+    plt.grid(color='black', linestyle='--', linewidth=0.5)
     img = BytesIO()
     plt.savefig(img, format='png')
     img.seek(0)
